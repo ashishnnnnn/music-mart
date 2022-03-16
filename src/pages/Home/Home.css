@@ -1,0 +1,27 @@
+.featured-head {
+  width: 100%;
+  height: 10rem;
+  color: var(--dark-text-color);
+}
+
+.thick-bar {
+  width: 20%;
+  border-bottom: 3px solid var(--theme-color);
+}
+
+.footer {
+  width: 100%;
+  height: fit-content;
+  padding: 3rem;
+  background: var(--light-theme-color);
+}
+
+.footer .footer-icon {
+  color: var(--dark-theme-color);
+}
+
+@media only screen and (max-width: 500px) {
+  .featured-head p {
+    font-size: 2rem;
+  }
+}
