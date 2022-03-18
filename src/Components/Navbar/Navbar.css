@@ -63,10 +63,14 @@
   }
 
   .navigation-bar .search-bar {
-    width: 100vw;
+    width: 95vw;
     top: 4rem;
+    margin-left: auto;
+    margin-right: auto;
     left: 0;
+    right: 0;
     position: absolute;
+    outline: 1px solid var(--dark-dark-color);
   }
   .margin-req {
     margin-bottom: 3rem;
