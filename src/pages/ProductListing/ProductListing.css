@@ -220,4 +220,13 @@
   .responsive-grid {
     margin-bottom: 2rem;
   }
+  .hidden-code {
+    width: 100%;
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    background-color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 -6px 4px -2px var(--dark-dark-color);
+  }
 }
