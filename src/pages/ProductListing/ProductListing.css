@@ -1,0 +1,223 @@
+.main-body {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  color: var(--text-color);
+}
+
+.main-body .column {
+  height: calc(100vh - 4rem);
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.side-bar::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+.main-content::-webkit-scrollbar {
+  width: 10px;
+  background: var(--light-dark-color);
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--theme-color);
+}
+
+.clear-filter .very-thin-bor {
+  border-bottom: 1px solid var(--theme-color);
+}
+
+.clear-filter:hover {
+  color: var(--theme-color);
+}
+
+.clear-filter:hover .very-thin-bor {
+  border-bottom: 2px solid var(--theme-color);
+}
+
+/* ################################# Input - Slider  ##################################*/
+
+.side-bar .slider {
+  width: 100%;
+  height: 15px;
+}
+
+.side-bar .slider::-webkit-slider-thumb {
+  width: 20px;
+  -webkit-appearance: none;
+  height: 20px;
+
+  border-radius: 2px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+/* ################################### Check-Box ##################################### */
+
+.custom-checkbox {
+  cursor: pointer;
+}
+
+.custom-checkbox .checkmark {
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid var(--theme-color);
+  display: inline-block;
+  border-radius: 3px;
+  background: var(--theme-color)
+    url(https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/White_check.svg/1200px-White_check.svg.png)
+    center/1250% no-repeat;
+  transition: background-size 0.2s ease;
+}
+
+.custom-checkbox input:checked + .checkmark {
+  background-size: 60%;
+  transition: background-size 0.25s cubic-bezier(0.7, 0, 0.18, 1.24);
+}
+
+.custom-checkbox input {
+  display: none;
+}
+
+/* ############################### radio-btn ######################### */
+
+.radio {
+  cursor: pointer;
+}
+
+.radio__input {
+  display: none;
+}
+
+.radio__radio {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--dark-secondary-color);
+  border-radius: 50%;
+}
+
+.radio__radio::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: var(--theme-color);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.15s;
+}
+
+.radio__input:checked + .radio__radio::after {
+  transform: scale(1);
+}
+
+.main-content .responsive-grid {
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+
+.main-content .card:hover {
+  cursor: pointer;
+  box-shadow: 5px 5px 10px 5px var(--dark-secondary-color);
+}
+
+/* ########################################### Filters-bottom  #############################*/
+
+.filters {
+  display: none;
+  position: absolute;
+  background-color: white;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  box-shadow: 0 -6px 4px -2px var(--dark-dark-color);
+}
+
+.filters .ele {
+  width: 50%;
+}
+
+.filters .divider {
+  width: 2px;
+  background-color: var(--dark-dark-color);
+}
+
+.hidden-code .sort-options {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 -6px 4px -2px var(--dark-dark-color);
+}
+
+.hidden-code .sort-options .click:hover {
+  background-color: var(--medium-theme-color);
+  border-radius: 10px;
+}
+
+.hidden-code .sort-options.hidden {
+  left: -100%;
+}
+
+.hidden-code .filter-options {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 -6px 4px -2px var(--dark-dark-color);
+}
+
+.hidden-code .filter-options .apply {
+  border-radius: 10px;
+  background-color: var(--theme-color);
+  color: white;
+}
+
+.hidden-code .filter-options .click:hover {
+  background-color: var(--medium-theme-color);
+  border-radius: 10px;
+}
+
+.hidden-code .filter-options.hidden {
+  left: -100%;
+}
+
+@media only screen and (max-width: 850px) {
+  .main-body {
+    grid-template-columns: 1fr;
+  }
+
+  .main-body .column {
+    height: calc(100vh - 7rem);
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+  }
+
+  .side-bar {
+    display: none;
+  }
+
+  .main-content {
+    padding: 2rem;
+  }
+
+  .filters {
+    display: flex;
+  }
+
+  .filters.hidden {
+    display: none;
+  }
+
+  .radio__radio {
+    border: 2px solid var(--text-color);
+  }
+  .responsive-grid {
+    margin-bottom: 2rem;
+  }
+}

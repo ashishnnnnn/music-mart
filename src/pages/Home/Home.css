@@ -4,6 +4,17 @@
   color: var(--dark-text-color);
 }
 
+.view-all-product {
+  width: fit-content;
+  text-align: center;
+  margin: 0 auto;
+  color: white;
+}
+
+.view-all-product:hover {
+  box-shadow: 0 0 5px 2px black;
+}
+
 .thick-bar {
   width: 20%;
   border-bottom: 3px solid var(--theme-color);
