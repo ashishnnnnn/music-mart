@@ -1,6 +1,9 @@
 import "./Product_card.css";
+import { useUserData } from "../../context/UserDataContext";
+import { is_item_in_wishlist } from "../../utils/is_item_in_wishlist";
 
 export const Product_card = ({ item }) => {
+  const { user_data, setUser_Data } = useUserData();
   return (
     <div className="card vertical-card">
       <div className="img-container">
@@ -10,9 +13,25 @@ export const Product_card = ({ item }) => {
         <div className="hero">
           <div className="title">{item.title}</div>
         </div>
-        <a className="wishlist">
-          <i className="fas fa-heart"></i>
-        </a>
+        {is_item_in_wishlist(user_data.wishlist, item) ? (
+          <a
+            onClick={() => {
+              setUser_Data({ type: "remove_from_wishlist", paylod: item });
+            }}
+            className="wishlist"
+          >
+            <i className="fas fa-heart"></i>
+          </a>
+        ) : (
+          <a
+            onClick={() => {
+              setUser_Data({ type: "add_to_wishlist", paylod: item });
+            }}
+            className="wishlist"
+          >
+            <i className="fa fa-heart"></i>
+          </a>
+        )}
       </div>
       <div className="price-details flex-column">
         <div className="price">Rs. {item.price}</div>

@@ -47,16 +47,17 @@ export const Filters_view = () => {
       <div className="spacer"></div>
       <div className="flex-center-column ali-st gap-0-8">
         <div className="fnt-1 fnt-w-600">Category</div>
-        {category.map((ele) => (
+        {category.map((ele, index) => (
           <label
+            key={index}
             className="custom-checkbox flex-center-row gap-0-8"
             tab-index="0"
             aria-label="Another Label"
-            onChange={() => {
-              setFilterState({ type: "category", paylod: ele[0] });
-            }}
           >
             <input
+              onChange={() => {
+                setFilterState({ type: "category", paylod: ele[0] });
+              }}
               type="checkbox"
               checked={filter_state.category.includes(ele[0])}
             />
@@ -68,17 +69,15 @@ export const Filters_view = () => {
       <div className="spacer"></div>
       <div className="flex-center-column ali-st gap-0-8">
         <div className="fnt-1 fnt-w-600">Ratings</div>
-        {ratings.map((ele) => (
-          <label
-            className="radio flex-center-row gap-0-5"
-            onChange={() => {
-              setFilterState({
-                type: "rating",
-                paylod: ele,
-              });
-            }}
-          >
+        {ratings.map((ele, index) => (
+          <label key={index} className="radio flex-center-row gap-0-5">
             <input
+              onChange={() => {
+                setFilterState({
+                  type: "rating",
+                  paylod: ele,
+                });
+              }}
               type="radio"
               name="ratings"
               id="my_radio"
