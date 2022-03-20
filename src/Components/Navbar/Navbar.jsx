@@ -1,14 +1,15 @@
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 export const Navbar = () => {
   return (
     <>
       <div className="navigation-bar z-ind-2">
-        <a href="" className="nav-title">
+        <Link to="/" href="" className="nav-title">
           <div className="logo flex-center-column">
             <span className="fnt-2 fnt-w-600 theme-color">Music</span>
             <span className="fnt-0-8 fnt-w-900">Mart</span>
           </div>
-        </a>
+        </Link>
         <ul>
           <li>
             <div className="flex-align search-bar pad-1">
