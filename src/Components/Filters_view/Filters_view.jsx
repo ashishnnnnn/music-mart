@@ -16,7 +16,7 @@ export const Filters_view = () => {
         <p className="fnt-1-2 fnt-w-800">Filters</p>
         <a
           onClick={() => {
-            setFilterState({ type: "clear_filter" });
+            setFilterState({ type: "CLEAR_FILTER" });
           }}
           className="clear-filter"
         >
@@ -39,7 +39,7 @@ export const Filters_view = () => {
             step="100"
             className="slider cursor-pointer"
             onChange={(e) => {
-              setFilterState({ type: "price", paylod: e.target.value });
+              setFilterState({ type: "PRICE", paylod: e.target.value });
             }}
           />
         </label>
@@ -56,7 +56,7 @@ export const Filters_view = () => {
           >
             <input
               onChange={() => {
-                setFilterState({ type: "category", paylod: ele[0] });
+                setFilterState({ type: "CATEGORY", paylod: ele[0] });
               }}
               type="checkbox"
               checked={filter_state.category.includes(ele[0])}
@@ -74,7 +74,7 @@ export const Filters_view = () => {
             <input
               onChange={() => {
                 setFilterState({
-                  type: "rating",
+                  type: "RATING",
                   paylod: ele,
                 });
               }}
@@ -94,7 +94,7 @@ export const Filters_view = () => {
         <div className="fnt-1 fnt-w-600">Sort-By</div>
         <label
           onChange={(e) => {
-            setFilterState({ type: "sortby", paylod: e.target.value });
+            setFilterState({ type: "SORTBY", paylod: e.target.value });
           }}
           className="radio flex-center-row gap-0-5"
         >
@@ -111,7 +111,7 @@ export const Filters_view = () => {
         </label>
         <label
           onChange={(e) => {
-            setFilterState({ type: "sortby", paylod: e.target.value });
+            setFilterState({ type: "SORTBY", paylod: e.target.value });
           }}
           className="radio flex-center-row gap-0-5"
         >

@@ -50,7 +50,7 @@ export const Mobile_filter = () => {
           <div className="hr-line"></div>
           <a
             onClick={() => {
-              setFilterState({ type: "sortby", paylod: "Low_to_high" });
+              setFilterState({ type: "SORTBY", paylod: "Low_to_high" });
             }}
             className="click fnt-1-2 pad-1"
           >
@@ -58,7 +58,7 @@ export const Mobile_filter = () => {
           </a>
           <a
             onClick={() => {
-              setFilterState({ type: "sortby", paylod: "High_to_low" });
+              setFilterState({ type: "SORTBY", paylod: "High_to_low" });
             }}
             className="click fnt-1-2 pad-1"
           >
@@ -72,7 +72,7 @@ export const Mobile_filter = () => {
             <p className="fnt-1-2 fnt-w-800">Filters</p>
             <a
               onClick={() => {
-                setFilterState({ type: "clear_filter" });
+                setFilterState({ type: "CLEAR_FILTER" });
               }}
               className="clear-filter"
             >
@@ -92,7 +92,7 @@ export const Mobile_filter = () => {
               >
                 <input
                   onChange={() => {
-                    setFilterState({ type: "category", paylod: ele[0] });
+                    setFilterState({ type: "CATEGORY", paylod: ele[0] });
                   }}
                   type="checkbox"
                   checked={filter_state.category.includes(ele[0])}
@@ -110,7 +110,7 @@ export const Mobile_filter = () => {
                 <input
                   onChange={() => {
                     setFilterState({
-                      type: "rating",
+                      type: "RATING",
                       paylod: ele,
                     });
                   }}

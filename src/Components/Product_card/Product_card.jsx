@@ -16,7 +16,7 @@ export const Product_card = ({ item }) => {
         {is_item_in_wishlist(user_data.wishlist, item) ? (
           <a
             onClick={() => {
-              setUser_Data({ type: "remove_from_wishlist", paylod: item });
+              setUser_Data({ type: "REMOVE_FROM_WISHLIST", paylod: item });
             }}
             className="wishlist"
           >
@@ -25,7 +25,7 @@ export const Product_card = ({ item }) => {
         ) : (
           <a
             onClick={() => {
-              setUser_Data({ type: "add_to_wishlist", paylod: item });
+              setUser_Data({ type: "ADD_TO_WISHLIST", paylod: item });
             }}
             className="wishlist"
           >
