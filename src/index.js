@@ -7,17 +7,21 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { FilterProvider } from "./context/FilterContext";
 import { ProductListProvider } from "./context/ProductListContext";
 
+import { UserDataProvider } from "./context/UserDataContext";
+
 // Call make Server
 makeServer();
 
 ReactDOM.render(
   <React.StrictMode>
     <FilterProvider>
-      <ProductListProvider>
-        <Router>
-          <App />
-        </Router>
-      </ProductListProvider>
+      <UserDataProvider>
+        <ProductListProvider>
+          <Router>
+            <App />
+          </Router>
+        </ProductListProvider>
+      </UserDataProvider>
     </FilterProvider>
   </React.StrictMode>,
   document.getElementById("root")

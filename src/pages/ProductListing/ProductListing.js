@@ -22,7 +22,6 @@ export const ProductListing = () => {
         const { data } = await axios.get("/api/products");
         setProductList(data.products);
       } catch (e) {
-        console.log(e);
         setisloading(false);
         setProductList([]);
       }
@@ -33,7 +32,7 @@ export const ProductListing = () => {
     <div className="main-body">
       <Filters_view />
       <div className="column main-content pad-3">
-        <div class="responsive-grid">
+        <div className="responsive-grid">
           {isloading && <LoadingAnimation isLoading={true} color={"#bb4430"} />}
           {!isloading &&
             list_to_view.map((item) => (

@@ -1,6 +1,10 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
+import { useGetLocalData } from "../../Hooks/useGetLocalData";
+import { useUserData } from "../../context/UserDataContext";
 export const Navbar = () => {
+  useGetLocalData();
+  const { user_data, setUser_Data } = useUserData();
   return (
     <>
       <div className="navigation-bar z-ind-2">
@@ -19,16 +23,18 @@ export const Navbar = () => {
               <input className="fnt-1-2 search-input" />
             </div>
           </li>
-          <li className="wishlist-btn">
+          <Link to="/wishlist" className="wishlist-btn">
             <div className="badge badge-icon">
               <i className="fas fa-heart"></i>
-              <p>5</p>
+              {user_data.wishlist.length > 0 && (
+                <p>{user_data.wishlist.length}</p>
+              )}
             </div>
-          </li>
+          </Link>
           <li className="cart-btn">
             <div className="badge badge-icon">
               <i className="fas fa-cart-plus"></i>
-              <p>2</p>
+              {user_data.cart.length > 0 && <p>{user_data.cart.length}</p>}
             </div>
           </li>
           <li className="login-btn">
