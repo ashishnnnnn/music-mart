@@ -8,6 +8,10 @@
   gap: 1rem;
 }
 
+.wishlist {
+  cursor: pointer;
+}
+
 .wishlist .fa.fa-heart {
   color: transparent;
   -webkit-text-stroke-width: 2px;

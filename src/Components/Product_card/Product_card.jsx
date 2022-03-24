@@ -16,7 +16,7 @@ export const Product_card = ({ item }) => {
           <div className="title">{item.title}</div>
         </div>
         {is_item_in_wishlist(user_data.wishlist, item) ? (
-          <a
+          <div
             onClick={() => {
               handleaddtoast({
                 message: "Removed from Wishlist",
@@ -27,9 +27,9 @@ export const Product_card = ({ item }) => {
             className="wishlist"
           >
             <i className="fas fa-heart"></i>
-          </a>
+          </div>
         ) : (
-          <a
+          <div
             onClick={() => {
               handleaddtoast({
                 message: "Added To Wishlist",
@@ -40,7 +40,7 @@ export const Product_card = ({ item }) => {
             className="wishlist"
           >
             <i className="fa fa-heart"></i>
-          </a>
+          </div>
         )}
       </div>
       <div className="price-details flex-column">

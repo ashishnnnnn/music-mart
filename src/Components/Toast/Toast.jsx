@@ -12,9 +12,9 @@ export const Toast = ({ message, type, handleclosetoast }) => {
   return (
     <div className={`alert ${type}`}>
       <p className="alert-text">{message}</p>
-      <a onClick={handleclosetoast} className="alert-cross">
+      <div onClick={handleclosetoast} className="alert-cross">
         &times;
-      </a>
+      </div>
     </div>
   );
 };

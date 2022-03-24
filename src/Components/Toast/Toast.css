@@ -27,6 +27,7 @@
 
 .alert-cross {
   font-size: 2rem;
+  cursor: pointer;
 }
 
 .alert-warn {
