@@ -1,9 +1,11 @@
 import "./Product_card.css";
 import { useUserData } from "../../context/UserDataContext";
 import { is_item_in_wishlist } from "../../utils/is_item_in_wishlist";
+import { useToast } from "../../context/ToastContext";
 
 export const Product_card = ({ item }) => {
   const { user_data, setUser_Data } = useUserData();
+  const { handleaddtoast } = useToast();
   return (
     <div className="card vertical-card">
       <div className="img-container">
@@ -14,23 +16,31 @@ export const Product_card = ({ item }) => {
           <div className="title">{item.title}</div>
         </div>
         {is_item_in_wishlist(user_data.wishlist, item) ? (
-          <a
+          <div
             onClick={() => {
+              handleaddtoast({
+                message: "Removed from Wishlist",
+                type: "alert-success",
+              });
               setUser_Data({ type: "REMOVE_FROM_WISHLIST", paylod: item });
             }}
             className="wishlist"
           >
             <i className="fas fa-heart"></i>
-          </a>
+          </div>
         ) : (
-          <a
+          <div
             onClick={() => {
+              handleaddtoast({
+                message: "Added To Wishlist",
+                type: "alert-success",
+              });
               setUser_Data({ type: "ADD_TO_WISHLIST", paylod: item });
             }}
             className="wishlist"
           >
             <i className="fa fa-heart"></i>
-          </a>
+          </div>
         )}
       </div>
       <div className="price-details flex-column">
