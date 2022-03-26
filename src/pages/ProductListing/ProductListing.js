@@ -37,7 +37,7 @@ export const ProductListing = () => {
           {!isloading &&
             list_to_view.map((item) => (
               <div key={item.id}>
-                <Product_card item={item} is_wishlist={false} />
+                <Product_card item={item} />
               </div>
             ))}
         </div>

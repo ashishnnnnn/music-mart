@@ -18,7 +18,7 @@ export const Wishlist = () => {
         <div className="wishlist responsive-grid">
           {user_data.wishlist.map((item) => (
             <div key={item.id}>
-              <Product_card item={item} is_wishlist={true} />
+              <Product_card item={item} />
             </div>
           ))}
         </div>
