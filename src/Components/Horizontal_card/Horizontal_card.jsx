@@ -36,7 +36,7 @@ export const Horizontal_card = ({ item }) => {
             <div
               onClick={() => {
                 handleaddtoast({
-                  message: "Increased the Quantity",
+                  message: "Decreased the Quantity",
                   type: "alert-success",
                 });
                 setUser_Data({ type: "DECREASE_QUANTITY", paylod: item });
