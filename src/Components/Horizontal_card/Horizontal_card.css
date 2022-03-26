@@ -1,0 +1,88 @@
+.horizantal-card .hero-container {
+  height: 100%;
+}
+
+.horizantal-card .second-btn {
+  width: 100%;
+  border-radius: 5px;
+  height: 3rem;
+  border: 1px solid var(--theme-color);
+  color: var(--text-color);
+  flex-wrap: nowrap;
+}
+
+.horizantal-card .qunatity-container .change-qnt {
+  width: 1.8rem;
+  height: 1.8rem;
+  border: 1px solid var(--dark-dark-color);
+  border-radius: 50%;
+}
+
+.horizantal-card .qunatity-container .quantity {
+  width: 2.4rem;
+  height: 2rem;
+  border-radius: 5px;
+  border: 1px solid var(--dark-dark-color);
+}
+
+.cart-items {
+  width: 55%;
+}
+
+.horizantal-card:hover {
+  cursor: pointer;
+  box-shadow: 5px 5px 10px 5px var(--dark-secondary-color);
+}
+
+.horizantal-card .price-details {
+  width: 35%;
+  align-self: flex-start;
+  border: 2px solid var(--theme-color);
+  border-radius: 10px;
+}
+
+.price-details .spacer {
+  margin: 0;
+}
+
+.price-details .purchase {
+  background-color: var(--theme-color);
+  color: white;
+  border-radius: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .cart {
+    flex-direction: column;
+  }
+
+  .cart-items {
+    width: 100%;
+  }
+
+  .price-details {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .horizantal-card {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .horizantal-card .img-container {
+    width: 100%;
+  }
+
+  .horizantal-card .hero-container {
+    width: 100%;
+  }
+
+  .cart-text {
+    padding: 0.5rem;
+  }
+
+  .qunatity-container {
+    margin-bottom: 0.5rem;
+  }
+}

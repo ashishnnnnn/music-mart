@@ -32,7 +32,7 @@ const ToastProvider = ({ children }) => {
         className={`alert-container ${toasts.length > 0 ? "" : "display-none"}`}
       >
         {toasts.map(({ id, message, type }) => (
-          <li key={id} className="mt-1">
+          <li key={id}>
             <Toast
               message={message}
               type={type}

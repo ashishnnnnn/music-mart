@@ -5,5 +5,6 @@ export const useGetLocalData = () => {
   const { setUser_Data } = useUserData();
   useEffect(() => {
     setUser_Data({ type: "GET_WISHLIST_LOCALLY" });
+    setUser_Data({ type: "GET_CART_LOCALLY" });
   }, []);
 };

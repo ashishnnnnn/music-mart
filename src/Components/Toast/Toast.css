@@ -2,12 +2,13 @@
   width: 85%;
 }
 .alert-container {
+  position: sticky;
   max-width: 20rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   position: absolute;
-  top: 8rem;
+  top: 15rem;
   right: 0;
   list-style: none;
 }

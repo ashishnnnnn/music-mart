@@ -1,0 +1,16 @@
+.App {
+  position: relative;
+}
+/* ::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; 
+}
+::-webkit-scrollbar {
+  width: 10px;
+  background: var(--light-dark-color);
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--theme-color);
+} */

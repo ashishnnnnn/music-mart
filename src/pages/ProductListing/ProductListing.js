@@ -6,7 +6,7 @@ import { useFilter } from "../../context/FilterContext";
 import "./ProductListing.css";
 import LoadingAnimation from "react-circle-loading-animation";
 
-import { filteration } from "../../utils/filteration";
+import { filteration } from "../../utils";
 export const ProductListing = () => {
   const { product_list, setProductList } = useProductList();
   const [isloading, setisloading] = useState(false);
@@ -37,7 +37,7 @@ export const ProductListing = () => {
           {!isloading &&
             list_to_view.map((item) => (
               <div key={item.id}>
-                <Product_card item={item} />
+                <Product_card item={item} is_wishlist={false} />
               </div>
             ))}
         </div>

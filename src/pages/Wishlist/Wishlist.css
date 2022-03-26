@@ -1,3 +1,11 @@
 .wishlist.responsive-grid {
+  max-width: 95%;
+  margin: 0 auto;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+.page-container {
+  height: calc(100vh - 4rem);
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  width: 100vw;
 }
