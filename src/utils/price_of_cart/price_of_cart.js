@@ -1,7 +1,8 @@
 export const price_of_cart = (cart) => {
-  let price = cart.reduce(
-    (accum, ele) => (accum += Number(ele.price) * Number(ele.qnty)),
+  let final_price = cart.reduce(
+    (final_price, item) =>
+      (final_price += Number(item.price) * Number(item.qnty)),
     0
   );
-  return price;
+  return final_price;
 };
