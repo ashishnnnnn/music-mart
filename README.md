@@ -25,3 +25,10 @@
 - [Pinakin Component Library](https://pinakin-ui.netlify.app/)
 - CSS
 - [React Router v6](https://reactrouter.com/)
+
+## Video
+
+
+
+https://user-images.githubusercontent.com/40332678/162163980-6016de84-8a30-460a-81d6-e8f13a597751.mp4
+
