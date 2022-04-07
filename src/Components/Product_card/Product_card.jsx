@@ -1,9 +1,10 @@
 import "./Product_card.css";
 import { useUserData } from "../../context/UserDataContext";
-import { is_item_in_wishlist } from "../../utils/is_item_in_wishlist";
+import { is_item_in_wishlist, is_item_in_cart } from "../../utils";
 import { useToast } from "../../context/ToastContext";
+import { Link } from "react-router-dom";
 
-export const Product_card = ({ item }) => {
+export const Product_card = ({ item, is_wishlist }) => {
   const { user_data, setUser_Data } = useUserData();
   const { handleaddtoast } = useToast();
   return (
@@ -24,7 +25,7 @@ export const Product_card = ({ item }) => {
               });
               setUser_Data({ type: "REMOVE_FROM_WISHLIST", paylod: item });
             }}
-            className="wishlist"
+            className="wishlist-btn fnt-2"
           >
             <i className="fas fa-heart"></i>
           </div>
@@ -37,7 +38,7 @@ export const Product_card = ({ item }) => {
               });
               setUser_Data({ type: "ADD_TO_WISHLIST", paylod: item });
             }}
-            className="wishlist"
+            className="wishlist-btn fnt-2"
           >
             <i className="fa fa-heart"></i>
           </div>
@@ -51,7 +52,24 @@ export const Product_card = ({ item }) => {
           ))}
         </div>
       </div>
-      <a className="cart-add-btn">Add to Cart</a>
+      {!is_item_in_cart(user_data.cart, item) ? (
+        <div
+          onClick={() => {
+            handleaddtoast({
+              message: "Added To Cart",
+              type: "alert-success",
+            });
+            setUser_Data({ type: "ADD_TO_CART", paylod: item });
+          }}
+          className="cart-add-btn"
+        >
+          Add to Cart
+        </div>
+      ) : (
+        <Link to="/cart" className="cart-add-btn">
+          Go to Cart
+        </Link>
+      )}
     </div>
   );
 };

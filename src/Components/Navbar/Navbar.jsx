@@ -31,12 +31,12 @@ export const Navbar = () => {
               )}
             </div>
           </Link>
-          <li className="cart-btn">
+          <Link to="/cart" className="cart-btn">
             <div className="badge badge-icon">
               <i className="fas fa-cart-plus"></i>
               {user_data.cart.length > 0 && <p>{user_data.cart.length}</p>}
             </div>
-          </li>
+          </Link>
           <li className="login-btn">
             <a href="" className="btn btn-primary">
               Login
