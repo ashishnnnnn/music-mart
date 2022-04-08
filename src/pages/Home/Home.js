@@ -46,6 +46,7 @@ export const Home = () => {
               className="card vertical-card"
               key={index}
               onClick={() => {
+                setFilterState({ type: "CLEAR_FILTER" });
                 setFilterState({ type: "CATEGORY", paylod: ele.title });
                 navigate("/product-list");
               }}
