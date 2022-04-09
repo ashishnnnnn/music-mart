@@ -2,9 +2,19 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useGetLocalData } from "../../Hooks/useGetLocalData";
 import { useUserData } from "../../context/UserDataContext";
+import { useState } from "react";
+import { useProductList } from "../../context/ProductListContext";
+import { get_searched_result } from "../../utils";
+import { useNavigate } from "react-router-dom";
+
 export const Navbar = () => {
   useGetLocalData();
-  const { user_data, setUser_Data } = useUserData();
+  const { user_data } = useUserData();
+  const [isInputActive, setIsInputActive] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const { product_list } = useProductList();
+  const searched_result = get_searched_result(searchValue, product_list);
+  let navigate = useNavigate();
   return (
     <>
       <div className="navigation-bar z-ind-2">
@@ -17,10 +27,49 @@ export const Navbar = () => {
         <ul>
           <li>
             <div className="flex-align search-bar pad-1">
-              <a href="" className="search-icon">
-                <i className="fa fa-search"></i>
-              </a>
-              <input className="fnt-1-2 search-input" />
+              <i className="fa fa-search mar-r-1"></i>
+              <input
+                onChange={(e) => {
+                  if (e.target.value.length > 0) {
+                    setIsInputActive(true);
+                  } else {
+                    setIsInputActive(false);
+                  }
+                  setSearchValue(e.target.value);
+                }}
+                className="fnt-1-2 search-input mar-r-1"
+                value={searchValue}
+              />
+              {isInputActive && (
+                <i
+                  onClick={() => {
+                    setSearchValue("");
+                    setIsInputActive(false);
+                  }}
+                  class="fas fa-times cursor-pointer"
+                ></i>
+              )}
+              {isInputActive && (
+                <div className="search-result flex-column gap-1-5">
+                  {searched_result.length === 0 ? (
+                    <div className="search-result-individual pad-1 flex-center-row">
+                      <p>Oops there is no such element</p>
+                    </div>
+                  ) : (
+                    searched_result.map((ele) => (
+                      <div
+                        className="search-result-individual pad-1 flex-center-row"
+                        key={ele._id}
+                        onClick={() => {
+                          navigate(`/single-product/${ele._id}`);
+                        }}
+                      >
+                        <p>{ele.title}</p>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
           </li>
           <Link to="/wishlist" className="wishlist-btn">
