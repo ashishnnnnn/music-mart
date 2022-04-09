@@ -9,6 +9,7 @@ import { useUserData } from "../../context/UserDataContext";
 import { is_item_in_wishlist, is_item_in_cart } from "../../utils";
 import { useToast } from "../../context/ToastContext";
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
 export const SingleProductDetails = () => {
   const { product_id } = useParams();
@@ -19,7 +20,8 @@ export const SingleProductDetails = () => {
     product_id,
     JSON.parse(localStorage.getItem("products"))
   );
-
+  const { auth_state } = useAuthContext();
+  const { token } = auth_state;
   useEffect(() => {
     (async () => {
       setisloading(true);
@@ -64,12 +66,22 @@ export const SingleProductDetails = () => {
               ) : (
                 <div
                   onClick={(e) => {
-                    e.stopPropagation();
-                    handleaddtoast({
-                      message: "Added To Wishlist",
-                      type: "alert-success",
-                    });
-                    setUser_Data({ type: "ADD_TO_WISHLIST", paylod: product });
+                    if (token) {
+                      e.stopPropagation();
+                      handleaddtoast({
+                        message: "Added To Wishlist",
+                        type: "alert-success",
+                      });
+                      setUser_Data({
+                        type: "ADD_TO_WISHLIST",
+                        paylod: product,
+                      });
+                    } else {
+                      handleaddtoast({
+                        message: "Login First To Add to Wishlist",
+                        type: "alert-warn",
+                      });
+                    }
                   }}
                   className="single-product-secondary-btn flex-center-row"
                 >
@@ -86,12 +98,19 @@ export const SingleProductDetails = () => {
               ) : (
                 <div
                   onClick={(e) => {
-                    e.stopPropagation();
-                    handleaddtoast({
-                      message: "Added To Cart",
-                      type: "alert-success",
-                    });
-                    setUser_Data({ type: "ADD_TO_CART", paylod: product });
+                    if (token) {
+                      e.stopPropagation();
+                      handleaddtoast({
+                        message: "Added To Cart",
+                        type: "alert-success",
+                      });
+                      setUser_Data({ type: "ADD_TO_CART", paylod: product });
+                    } else {
+                      handleaddtoast({
+                        message: "Login First To Add to Cart",
+                        type: "alert-warn",
+                      });
+                    }
                   }}
                   className="single-product-primary-btn flex-center-row mar-t-1"
                 >

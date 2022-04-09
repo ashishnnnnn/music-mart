@@ -31,10 +31,6 @@
   box-shadow: 5px 0 5px -2px var(--dark-dark-color);
 }
 
-.navigation-bar .side-hidden-bar.hidden {
-  left: -100%;
-}
-
 .navigation-bar .side-hidden-bar .cross {
   color: white;
 }
@@ -85,8 +81,8 @@
 
 @media only screen and (max-width: 850px) {
   .navigation-bar {
-    gap: 1.5rem;
-    padding: 1rem 1.5rem;
+    gap: 0.4rem;
+    padding: 1rem;
   }
 
   .navigation-bar .search-bar {
@@ -103,11 +99,13 @@
   .margin-req {
     margin-bottom: 3rem;
   }
-  .login-btn {
-    display: none;
-  }
 
   .navigation-bar .hemburgur {
     display: block;
+    cursor: pointer;
+  }
+
+  .navigation-bar ul {
+    gap: 1.2rem;
   }
 }

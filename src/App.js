@@ -7,6 +7,8 @@ import {
   Wishlist,
   Cart,
   SingleProductDetails,
+  Login,
+  Signup,
 } from "./pages";
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           path="/single-product/:product_id"
           element={<SingleProductDetails />}
         />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );
