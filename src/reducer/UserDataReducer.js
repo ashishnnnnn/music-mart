@@ -77,6 +77,8 @@ export function UserDataReducer(state, action) {
         );
         return { ...state, wishlist: new_wishlist_from_cart };
       }
+    case "RESET":
+      return { wishlist: [], cart: [], addresses: [] };
     default:
       return state;
   }
