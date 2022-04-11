@@ -12,7 +12,6 @@ export const Signup = () => {
   const { firstName, lastName, email, password, confirmPassword } = user;
   const { handleaddtoast } = useToast();
   const signupHandle = async () => {
-    console.log("HELLO");
     try {
       let validate_result = validate_input(email, password, confirmPassword);
       if (validate_result === "OK") {

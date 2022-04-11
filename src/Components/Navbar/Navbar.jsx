@@ -76,7 +76,6 @@ export const Navbar = () => {
               <div className="side-hidder-info pad-t-1 pad-l-1">
                 <div
                   onClick={(e) => {
-                    e.stopPropagation();
                     navigate("/login");
                     setSideBarActive((pre_state) => !pre_state);
                   }}
