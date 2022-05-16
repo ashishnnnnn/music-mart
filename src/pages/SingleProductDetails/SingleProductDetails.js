@@ -9,7 +9,7 @@ import { useUserData } from "../../context/UserDataContext";
 import { is_item_in_wishlist, is_item_in_cart } from "../../utils";
 import { useToast } from "../../context/ToastContext";
 import { Link } from "react-router-dom";
-import { useAuthContext } from "../../context/AuthContext";
+import { useSelector } from "react-redux";
 
 export const SingleProductDetails = () => {
   const { product_id } = useParams();
@@ -20,7 +20,7 @@ export const SingleProductDetails = () => {
     product_id,
     JSON.parse(localStorage.getItem("products"))
   );
-  const { auth_state } = useAuthContext();
+  const auth_state = useSelector((state) => state.auth);
   const { token } = auth_state;
   useEffect(() => {
     (async () => {

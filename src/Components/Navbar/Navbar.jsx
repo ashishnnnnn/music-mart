@@ -6,8 +6,11 @@ import { useState } from "react";
 import { useProductList } from "../../context/ProductListContext";
 import { get_searched_result } from "../../utils";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+
 import { useToast } from "../../context/ToastContext";
+
+import { logout } from "../../Features/authentication/authSlice";
 
 export const Navbar = () => {
   useGetLocalData();
@@ -19,9 +22,9 @@ export const Navbar = () => {
   const searched_result = get_searched_result(searchValue, product_list);
   const [sideBarActive, setSideBarActive] = useState(false);
   let navigate = useNavigate();
-  const { auth_state, setAuthState } = useAuthContext();
-  const { token, user } = auth_state;
-
+  const dispatch = useDispatch();
+  const auth_state = useSelector((state) => state.auth);
+  const { user, token } = auth_state;
   return (
     <>
       <div className="navigation-bar z-ind-2">
@@ -59,12 +62,7 @@ export const Navbar = () => {
                       message: `Bye Bye ${user.firstName}`,
                       type: "alert-success",
                     });
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("my_wishlist");
-                    localStorage.removeItem("my_cart");
-                    setUser_Data({ type: "RESET" });
-
-                    setAuthState({ type: "TOKEN", payload: null });
+                    dispatch(logout());
                     setSideBarActive((pre_state) => !pre_state);
                   }}
                   className="btn btn-primary cursor-pointer"
@@ -165,12 +163,7 @@ export const Navbar = () => {
                     message: `Bye Bye ${user.firstName}`,
                     type: "alert-success",
                   });
-                  localStorage.removeItem("token");
-                  localStorage.removeItem("my_wishlist");
-                  localStorage.removeItem("my_cart");
-                  setUser_Data({ type: "RESET" });
-
-                  setAuthState({ type: "TOKEN", payload: null });
+                  dispatch(logout());
                 }}
                 className="btn btn-primary cursor-pointer"
               >
