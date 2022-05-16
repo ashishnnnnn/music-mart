@@ -1,6 +1,8 @@
 import { Sliders, Footer } from "../../Components";
 import { Link, useNavigate } from "react-router-dom";
-import { useFilter } from "../../context/FilterContext";
+import { setCategory, clearFilter } from "../../Features/filter/filterSlice";
+import { useDispatch } from "react-redux";
+
 import "./Home.css";
 const cateogry_details = [
   {
@@ -22,7 +24,8 @@ const cateogry_details = [
 ];
 export const Home = () => {
   const navigate = useNavigate();
-  const { setFilterState } = useFilter();
+  const dispatch = useDispatch();
+
   return (
     <>
       <Sliders />
@@ -30,7 +33,7 @@ export const Home = () => {
         to="/product-list"
         className="btn btn-primary view-all-product fnt-1-2 flex-center-column text-center"
         onClick={() => {
-          setFilterState({ type: "clear_filter" });
+          dispatch(clearFilter());
         }}
       >
         <p>All Products</p>
@@ -46,8 +49,8 @@ export const Home = () => {
               className="card vertical-card"
               key={index}
               onClick={() => {
-                setFilterState({ type: "CLEAR_FILTER" });
-                setFilterState({ type: "CATEGORY", paylod: ele.title });
+                dispatch(clearFilter());
+                dispatch(setCategory(ele.title));
                 navigate("/product-list");
               }}
             >

@@ -1,4 +1,13 @@
-import { useFilter } from "../../context/FilterContext";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  clearFilter,
+  setPrice,
+  setCategory,
+  setRating,
+  setFilterSort,
+} from "../../Features/filter/filterSlice";
+
 const category = [
   ["guitar", "Guitar"],
   ["drum", "Drum"],
@@ -9,14 +18,15 @@ const category = [
 const ratings = [4, 3, 2, 1];
 
 export const Filters_view = () => {
-  const { filter_state, setFilterState } = useFilter();
+  const filter_state = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
   return (
     <div className="column side-bar pad-1-5 pad-t-3 pad-b-5">
       <div className="flex jst-sp-sb ali-ce">
         <p className="fnt-1-2 fnt-w-800">Filters</p>
         <a
           onClick={() => {
-            setFilterState({ type: "CLEAR_FILTER" });
+            dispatch(clearFilter());
           }}
           className="clear-filter"
         >
@@ -39,7 +49,7 @@ export const Filters_view = () => {
             step="100"
             className="slider cursor-pointer"
             onChange={(e) => {
-              setFilterState({ type: "PRICE", paylod: e.target.value });
+              dispatch(setPrice(e.target.value));
             }}
           />
         </label>
@@ -56,7 +66,7 @@ export const Filters_view = () => {
           >
             <input
               onChange={() => {
-                setFilterState({ type: "CATEGORY", paylod: ele[0] });
+                dispatch(setCategory(ele[0]));
               }}
               type="checkbox"
               checked={filter_state.category.includes(ele[0])}
@@ -73,10 +83,7 @@ export const Filters_view = () => {
           <label key={index} className="radio flex-center-row gap-0-5">
             <input
               onChange={() => {
-                setFilterState({
-                  type: "RATING",
-                  paylod: ele,
-                });
+                dispatch(setRating(ele));
               }}
               type="radio"
               name="ratings"
@@ -94,7 +101,7 @@ export const Filters_view = () => {
         <div className="fnt-1 fnt-w-600">Sort-By</div>
         <label
           onChange={(e) => {
-            setFilterState({ type: "SORTBY", paylod: e.target.value });
+            dispatch(setFilterSort(e.target.value));
           }}
           className="radio flex-center-row gap-0-5"
         >
@@ -111,7 +118,7 @@ export const Filters_view = () => {
         </label>
         <label
           onChange={(e) => {
-            setFilterState({ type: "SORTBY", paylod: e.target.value });
+            dispatch(setFilterSort(e.target.value));
           }}
           className="radio flex-center-row gap-0-5"
         >
