@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useGetLocalData } from "../../Hooks/useGetLocalData";
 import { useUserData } from "../../context/UserDataContext";
 import { useState } from "react";
-import { useProductList } from "../../context/ProductListContext";
 import { get_searched_result } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,15 +13,16 @@ import { logout } from "../../Features/authentication/authSlice";
 
 export const Navbar = () => {
   useGetLocalData();
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
   const { handleaddtoast } = useToast();
   const { user_data, setUser_Data } = useUserData();
   const [isInputActive, setIsInputActive] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-  const { product_list } = useProductList();
+  const product_list = useSelector((state) => state.product_list).product_list;
   const searched_result = get_searched_result(searchValue, product_list);
   const [sideBarActive, setSideBarActive] = useState(false);
-  let navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const auth_state = useSelector((state) => state.auth);
   const { user, token } = auth_state;
   return (

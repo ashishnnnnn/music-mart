@@ -16,10 +16,8 @@ export const SingleProductDetails = () => {
   const [isloading, setisloading] = useState(false);
   const { user_data, setUser_Data } = useUserData();
   const { handleaddtoast } = useToast();
-  let product = get_product_from_id(
-    product_id,
-    JSON.parse(localStorage.getItem("products"))
-  );
+  const product_list = useSelector((state) => state.product_list).product_list;
+  let product = get_product_from_id(product_id, product_list);
   const auth_state = useSelector((state) => state.auth);
   const { token } = auth_state;
   useEffect(() => {

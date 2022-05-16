@@ -5,7 +5,6 @@ import App from "./App";
 import { makeServer } from "./server";
 import { BrowserRouter as Router } from "react-router-dom";
 import { FilterProvider } from "./context/FilterContext";
-import { ProductListProvider } from "./context/ProductListContext";
 import { ToastProvider } from "./context/ToastContext";
 import { UserDataProvider } from "./context/UserDataContext";
 import { Provider } from "react-redux";
@@ -20,13 +19,11 @@ ReactDOM.render(
     <ToastProvider>
       <FilterProvider>
         <UserDataProvider>
-          <ProductListProvider>
-            <Provider store={store}>
-              <Router>
-                <App />
-              </Router>
-            </Provider>
-          </ProductListProvider>
+          <Provider store={store}>
+            <Router>
+              <App />
+            </Router>
+          </Provider>
         </UserDataProvider>
       </FilterProvider>
     </ToastProvider>
