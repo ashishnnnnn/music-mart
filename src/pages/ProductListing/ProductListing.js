@@ -21,6 +21,7 @@ export const ProductListing = () => {
         setisloading(false);
         const { data } = await axios.get("/api/products");
         setProductList(data.products);
+        localStorage.setItem("products", JSON.stringify(data.products));
       } catch (e) {
         setisloading(false);
         setProductList([]);
