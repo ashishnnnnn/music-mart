@@ -4,14 +4,14 @@ import { is_item_in_wishlist, is_item_in_cart } from "../../utils";
 import { useToast } from "../../context/ToastContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../context/AuthContext";
+import { useSelector } from "react-redux";
 
 export const Product_card = ({ item, is_wishlist }) => {
   const { user_data, setUser_Data } = useUserData();
   let navigate = useNavigate();
-  const { auth_state } = useAuthContext();
-  const { token } = auth_state;
   const { handleaddtoast } = useToast();
+  const auth_state = useSelector((state) => state.auth);
+  const { token } = auth_state;
   return (
     <div
       onClick={() => {

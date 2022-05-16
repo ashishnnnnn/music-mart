@@ -1,15 +1,19 @@
 import "./Login.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+
 import { useToast } from "../../context/ToastContext";
+import { login } from "../../Features/authentication/authSlice";
+import { useState } from "react";
 
 export const Login = () => {
   let navigate = useNavigate();
-  const { auth_state, setAuthState } = useAuthContext();
-  const { user, error } = auth_state;
-  const { email, password } = user;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { handleaddtoast } = useToast();
+  const dispatch = useDispatch();
+  const auth_state = useSelector((state) => state.auth);
+
   const loginHandle = async (guest_login) => {
     let input_email = "";
     let input_password = "";
@@ -21,24 +25,21 @@ export const Login = () => {
       input_password = password;
     }
     try {
-      const response = await axios.post(`/api/auth/login`, {
-        email: input_email,
-        password: input_password,
-      });
-      localStorage.setItem("token", response.data.encodedToken);
-      setAuthState({ type: "TOKEN", payload: response.data.encodedToken });
-      setAuthState({
-        type: "FIRST_NAME",
-        payload: response.data.foundUser.firstName,
-      });
-      handleaddtoast({
-        message: `Welcome ${response.data.foundUser.firstName}`,
-        type: "alert-success",
-      });
-      navigate("/");
+      const response = await dispatch(
+        login({ email: input_email, password: input_password })
+      );
+      if (response.payload.message === "rejected") {
+        throw "error";
+      } else {
+        handleaddtoast({
+          message: `Welcome ${response.payload.response.foundUser.firstName}`,
+          type: "alert-success",
+        });
+        navigate("/");
+      }
     } catch (err) {
       handleaddtoast({
-        message: "Enter valid email and password",
+        message: "Enter Valid Email and Password",
         type: "alert-dang",
       });
     }
@@ -54,7 +55,7 @@ export const Login = () => {
             type="email"
             placeholder="Enter your email"
             onChange={(e) => {
-              setAuthState({ type: "EMAIL", payload: e.target.value });
+              setEmail(e.target.value);
             }}
           />
         </div>
@@ -65,7 +66,7 @@ export const Login = () => {
             type="password"
             placeholder="Enter Your Password"
             onChange={(e) => {
-              setAuthState({ type: "PASSWORD", payload: e.target.value });
+              setPassword(e.target.value);
             }}
           />
         </div>
