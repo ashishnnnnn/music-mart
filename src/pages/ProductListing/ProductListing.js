@@ -1,30 +1,25 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useProductList } from "../../context/ProductListContext";
 import { Filters_view, Product_card, Mobile_filter } from "../../Components";
 import { useFilter } from "../../context/FilterContext";
 import "./ProductListing.css";
 import LoadingAnimation from "react-circle-loading-animation";
+import { useDispatch, useSelector } from "react-redux";
+import { fetch_product } from "../../Features/producList/productListSlice";
 
 import { filteration } from "../../utils";
 export const ProductListing = () => {
-  const { product_list, setProductList } = useProductList();
   const [isloading, setisloading] = useState(false);
   const { filter_state } = useFilter();
+  const dispatch = useDispatch();
+  const product_list = useSelector((state) => state.product_list).product_list;
   useEffect(() => {
     (async () => {
       setisloading(true);
-      await (async () => {
-        return new Promise((resolve) => setTimeout(resolve, 2000));
-      })();
       try {
+        const response = await dispatch(fetch_product());
         setisloading(false);
-        const { data } = await axios.get("/api/products");
-        setProductList(data.products);
-        localStorage.setItem("products", JSON.stringify(data.products));
       } catch (e) {
         setisloading(false);
-        setProductList([]);
       }
     })();
   }, []);
