@@ -10,11 +10,20 @@ export const Login = () => {
   const { user, error } = auth_state;
   const { email, password } = user;
   const { handleaddtoast } = useToast();
-  const loginHandle = async () => {
+  const loginHandle = async (guest_login) => {
+    let input_email = "";
+    let input_password = "";
+    if (guest_login) {
+      input_email = "ashish@gmail.com";
+      input_password = "ashishkumar";
+    } else {
+      input_email = email;
+      input_password = password;
+    }
     try {
       const response = await axios.post(`/api/auth/login`, {
-        email: email,
-        password: password,
+        email: input_email,
+        password: input_password,
       });
       localStorage.setItem("token", response.data.encodedToken);
       setAuthState({ type: "TOKEN", payload: response.data.encodedToken });
@@ -27,7 +36,12 @@ export const Login = () => {
         type: "alert-success",
       });
       navigate("/");
-    } catch (err) {}
+    } catch (err) {
+      handleaddtoast({
+        message: "Enter valid email and password",
+        type: "alert-dang",
+      });
+    }
   };
   return (
     <div className="flex-center-column login-body">
@@ -57,9 +71,7 @@ export const Login = () => {
         </div>
         <div
           onClick={() => {
-            setAuthState({ type: "EMAIL", payload: "ashish@gmail.com" });
-            setAuthState({ type: "PASSWORD", payload: "ashishkumar" });
-            loginHandle();
+            loginHandle(true);
           }}
           className="flex-center-row cursor-pointer theme-color fnt-w-600"
         >
@@ -67,7 +79,9 @@ export const Login = () => {
         </div>
 
         <div
-          onClick={loginHandle}
+          onClick={() => {
+            loginHandle(false);
+          }}
           className="btn btn-primary flex-center-row text-align pad-0-8 fnt-1-2 cursor-pointer"
         >
           Login
