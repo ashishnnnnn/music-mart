@@ -1,6 +1,14 @@
 import "./Mobile_filter.css";
 import { useState } from "react";
-import { useFilter } from "../../context/FilterContext";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  clearFilter,
+  setCategory,
+  setRating,
+  setFilterSort,
+} from "../../Features/filter/filterSlice";
+
 const category = [
   ["guitar", "Guitar"],
   ["drum", "Drum"],
@@ -13,7 +21,8 @@ const ratings = [4, 3, 2, 1];
 export const Mobile_filter = () => {
   const [show_sort, setshow_sort] = useState(false);
   const [show_filter, setshow_filter] = useState(false);
-  const { filter_state, setFilterState } = useFilter();
+  const filter_state = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
   return (
     <div className="hidden-code">
       <div className="filters z-ind-1 flex">
@@ -50,7 +59,7 @@ export const Mobile_filter = () => {
           <div className="hr-line"></div>
           <a
             onClick={() => {
-              setFilterState({ type: "SORTBY", paylod: "Low_to_high" });
+              dispatch(setFilterSort("Low_to_high"));
             }}
             className="click fnt-1-2 pad-1"
           >
@@ -58,7 +67,7 @@ export const Mobile_filter = () => {
           </a>
           <a
             onClick={() => {
-              setFilterState({ type: "SORTBY", paylod: "High_to_low" });
+              dispatch(setFilterSort("High_to_low"));
             }}
             className="click fnt-1-2 pad-1"
           >
@@ -72,7 +81,7 @@ export const Mobile_filter = () => {
             <p className="fnt-1-2 fnt-w-800">Filters</p>
             <a
               onClick={() => {
-                setFilterState({ type: "CLEAR_FILTER" });
+                dispatch(clearFilter());
               }}
               className="clear-filter"
             >
@@ -92,7 +101,7 @@ export const Mobile_filter = () => {
               >
                 <input
                   onChange={() => {
-                    setFilterState({ type: "CATEGORY", paylod: ele[0] });
+                    dispatch(setCategory(ele[0]));
                   }}
                   type="checkbox"
                   checked={filter_state.category.includes(ele[0])}
@@ -109,10 +118,7 @@ export const Mobile_filter = () => {
               <label key={index} className="radio flex-center-row gap-0-5">
                 <input
                   onChange={() => {
-                    setFilterState({
-                      type: "RATING",
-                      paylod: ele,
-                    });
+                    dispatch(setRating(ele));
                   }}
                   type="radio"
                   name="ratings"

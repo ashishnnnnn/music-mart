@@ -1,7 +1,6 @@
+import "./ProductListing.css";
 import { useEffect, useState } from "react";
 import { Filters_view, Product_card, Mobile_filter } from "../../Components";
-import { useFilter } from "../../context/FilterContext";
-import "./ProductListing.css";
 import LoadingAnimation from "react-circle-loading-animation";
 import { useDispatch, useSelector } from "react-redux";
 import { fetch_product } from "../../Features/producList/productListSlice";
@@ -9,9 +8,9 @@ import { fetch_product } from "../../Features/producList/productListSlice";
 import { filteration } from "../../utils";
 export const ProductListing = () => {
   const [isloading, setisloading] = useState(false);
-  const { filter_state } = useFilter();
   const dispatch = useDispatch();
   const product_list = useSelector((state) => state.product_list).product_list;
+  const filters = useSelector((state) => state.filter);
   useEffect(() => {
     (async () => {
       setisloading(true);
@@ -23,7 +22,7 @@ export const ProductListing = () => {
       }
     })();
   }, []);
-  const list_to_view = filteration(product_list, filter_state);
+  const list_to_view = filteration(product_list, filters);
   return (
     <div className="main-body">
       <Filters_view />

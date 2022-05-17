@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
 import { BrowserRouter as Router } from "react-router-dom";
-import { FilterProvider } from "./context/FilterContext";
 import { ToastProvider } from "./context/ToastContext";
 import { UserDataProvider } from "./context/UserDataContext";
 import { Provider } from "react-redux";
@@ -17,15 +16,13 @@ makeServer();
 ReactDOM.render(
   <React.StrictMode>
     <ToastProvider>
-      <FilterProvider>
-        <UserDataProvider>
-          <Provider store={store}>
-            <Router>
-              <App />
-            </Router>
-          </Provider>
-        </UserDataProvider>
-      </FilterProvider>
+      <UserDataProvider>
+        <Provider store={store}>
+          <Router>
+            <App />
+          </Router>
+        </Provider>
+      </UserDataProvider>
     </ToastProvider>
   </React.StrictMode>,
   document.getElementById("root")
