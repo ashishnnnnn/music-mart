@@ -11,7 +11,6 @@ export const ProductListing = () => {
   const dispatch = useDispatch();
   const product_list = useSelector((state) => state.product_list).product_list;
   const filters = useSelector((state) => state.filter);
-  console.log(filters);
   useEffect(() => {
     (async () => {
       setisloading(true);
