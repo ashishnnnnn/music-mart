@@ -29,12 +29,11 @@ export const ProductListing = () => {
           {status === "loading" && (
             <LoadingAnimation isLoading={true} color={"#bb4430"} />
           )}
-          {!(status === "loading") &&
-            list_to_view.map((item) => (
-              <div key={item.id}>
-                <Product_card item={item} />
-              </div>
-            ))}
+          {list_to_view.map((item) => (
+            <div key={item.id}>
+              <Product_card item={item} />
+            </div>
+          ))}
         </div>
         <Mobile_filter />
       </div>
