@@ -5,7 +5,6 @@ import App from "./App";
 import { makeServer } from "./server";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ToastProvider } from "./context/ToastContext";
-import { UserDataProvider } from "./context/UserDataContext";
 import { Provider } from "react-redux";
 
 import { store } from "./store";
@@ -16,13 +15,11 @@ makeServer();
 ReactDOM.render(
   <React.StrictMode>
     <ToastProvider>
-      <UserDataProvider>
-        <Provider store={store}>
-          <Router>
-            <App />
-          </Router>
-        </Provider>
-      </UserDataProvider>
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
     </ToastProvider>
   </React.StrictMode>,
   document.getElementById("root")

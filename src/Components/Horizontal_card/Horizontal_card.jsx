@@ -1,10 +1,17 @@
 import "./Horizontal_card.css";
-import { useUserData } from "../../context/UserDataContext";
 import { useToast } from "../../context/ToastContext";
+import { changeQtyCart } from "../../Features/authentication/authSlice";
+import { removeFromCart } from "../../Features/authentication/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { is_item_in_wishlist } from "../../utils";
+import { addToWishlist } from "../../Features/authentication/authSlice";
+import { useNavigate } from "react-router";
 
 export const Horizontal_card = ({ item }) => {
-  const { setUser_Data } = useUserData();
+  let navigate = useNavigate();
   const { handleaddtoast } = useToast();
+  const dispatch = useDispatch();
+  const { token, user } = useSelector((state) => state.auth);
   return (
     <div className="card horizantal-card">
       <div className="img-container">
@@ -21,25 +28,37 @@ export const Horizontal_card = ({ item }) => {
           <p>Quantity :</p>
           <div
             onClick={() => {
+              dispatch(
+                changeQtyCart({
+                  product_id: item._id,
+                  user_token: token,
+                  type: "increment",
+                })
+              );
               handleaddtoast({
                 message: "Increased the Quantity",
                 type: "alert-success",
               });
-              setUser_Data({ type: "INCREASE_QUANTITY", paylod: item });
             }}
             className="flex-center-row change-qnt add pad-2px"
           >
             <i className="fas fa-plus"></i>
           </div>
-          <p className="flex-center-row quantity">{item.qnty}</p>
-          {item.qnty > 1 && (
+          <p className="flex-center-row quantity">{item.qty}</p>
+          {item.qty > 1 && (
             <div
               onClick={() => {
+                dispatch(
+                  changeQtyCart({
+                    product_id: item._id,
+                    user_token: token,
+                    type: "decrement",
+                  })
+                );
                 handleaddtoast({
                   message: "Decreased the Quantity",
                   type: "alert-success",
                 });
-                setUser_Data({ type: "DECREASE_QUANTITY", paylod: item });
               }}
               className="flex-center-row change-qnt remove pad-2px"
             >
@@ -50,29 +69,52 @@ export const Horizontal_card = ({ item }) => {
         <div className="card-btn flex-center-column">
           <div
             onClick={() => {
+              dispatch(
+                removeFromCart({
+                  product_id: item._id,
+                  user_token: token,
+                })
+              );
               handleaddtoast({
                 message: "Removed From Cart",
                 type: "alert-success",
               });
-              setUser_Data({ type: "REMOVE_FROM_CART", paylod: item });
             }}
             className="cart-add-btn"
           >
             Remove From Cart
           </div>
-          <div
-            onClick={() => {
-              handleaddtoast({
-                message: "Moved To Wishlist",
-                type: "alert-success",
-              });
-              setUser_Data({ type: "REMOVE_FROM_CART", paylod: item });
-              setUser_Data({ type: "FROM_CART_TO_WISHLIST", paylod: item });
-            }}
-            className="second-btn mar-t-1 fnt-1-2 flex-center-row"
-          >
-            Move To Wishlist
-          </div>
+          {is_item_in_wishlist(user?.wishlist ?? [], item) ? (
+            <div
+              onClick={() => {
+                navigate("/wishlist");
+              }}
+              className="second-btn mar-t-1 fnt-1-2 flex-center-row"
+            >
+              Go To Wishlist
+            </div>
+          ) : (
+            <div
+              onClick={async () => {
+                await dispatch(
+                  removeFromCart({
+                    product_id: item._id,
+                    user_token: token,
+                  })
+                );
+                await dispatch(
+                  addToWishlist({ product: item, user_token: token })
+                );
+                handleaddtoast({
+                  message: "Moved To Wishlist",
+                  type: "alert-success",
+                });
+              }}
+              className="second-btn mar-t-1 fnt-1-2 flex-center-row"
+            >
+              Move To Wishlist
+            </div>
+          )}
         </div>
         <div></div>
       </div>
