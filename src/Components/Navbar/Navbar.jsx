@@ -1,7 +1,5 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { useGetLocalData } from "../../Hooks/useGetLocalData";
-import { useUserData } from "../../context/UserDataContext";
 import { useState } from "react";
 import { get_searched_result } from "../../utils";
 import { useNavigate } from "react-router-dom";
@@ -12,11 +10,9 @@ import { useToast } from "../../context/ToastContext";
 import { logout } from "../../Features/authentication/authSlice";
 
 export const Navbar = () => {
-  useGetLocalData();
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const { handleaddtoast } = useToast();
-  const { user_data, setUser_Data } = useUserData();
   const [isInputActive, setIsInputActive] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const product_list = useSelector((state) => state.product_list).product_list;
@@ -144,15 +140,13 @@ export const Navbar = () => {
           <Link to={token ? "/wishlist" : "/login"} className="wishlist-btn">
             <div className="badge badge-icon">
               <i className="fas fa-heart"></i>
-              {user_data.wishlist.length > 0 && (
-                <p>{user_data.wishlist.length}</p>
-              )}
+              {user?.wishlist?.length > 0 && <p>{user?.wishlist?.length}</p>}
             </div>
           </Link>
           <Link to={token ? "/cart" : "/login"} className="cart-btn">
             <div className="badge badge-icon">
               <i className="fas fa-cart-plus"></i>
-              {user_data.cart.length > 0 && <p>{user_data.cart.length}</p>}
+              {user?.cart?.length > 0 && <p>{user?.cart?.length}</p>}
             </div>
           </Link>
           <li className="login-btn">

@@ -1,25 +1,25 @@
-import axios from "axios";
-
 import "./SingleProductDetails.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import LoadingAnimation from "react-circle-loading-animation";
 import { get_product_from_id } from "../../utils";
-import { useUserData } from "../../context/UserDataContext";
 import { is_item_in_wishlist, is_item_in_cart } from "../../utils";
 import { useToast } from "../../context/ToastContext";
+import { addToWishlist } from "../../Features/authentication/authSlice";
+import { addToCart } from "../../Features/authentication/authSlice";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 export const SingleProductDetails = () => {
   const { product_id } = useParams();
   const [isloading, setisloading] = useState(false);
-  const { user_data, setUser_Data } = useUserData();
   const { handleaddtoast } = useToast();
   const product_list = useSelector((state) => state.product_list).product_list;
   let product = get_product_from_id(product_id, product_list);
   const auth_state = useSelector((state) => state.auth);
-  const { token } = auth_state;
+  const { token, user } = auth_state;
+  const dispatch = useDispatch();
+
   useEffect(() => {
     (async () => {
       setisloading(true);
@@ -54,7 +54,7 @@ export const SingleProductDetails = () => {
               </div>
             </div>
             <div className="single-product-btn">
-              {is_item_in_wishlist(user_data.wishlist, product) ? (
+              {is_item_in_wishlist(user.wishlist, product) ? (
                 <Link
                   to={"/wishlist"}
                   className="single-product-secondary-btn flex-center-row"
@@ -63,16 +63,15 @@ export const SingleProductDetails = () => {
                 </Link>
               ) : (
                 <div
-                  onClick={(e) => {
+                  onClick={async (e) => {
                     if (token) {
                       e.stopPropagation();
+                      await dispatch(
+                        addToWishlist({ product: product, user_token: token })
+                      );
                       handleaddtoast({
                         message: "Added To Wishlist",
                         type: "alert-success",
-                      });
-                      setUser_Data({
-                        type: "ADD_TO_WISHLIST",
-                        paylod: product,
                       });
                     } else {
                       handleaddtoast({
@@ -86,7 +85,7 @@ export const SingleProductDetails = () => {
                   Add To Wishlist
                 </div>
               )}
-              {is_item_in_cart(user_data.cart, product) ? (
+              {is_item_in_cart(user.cart, product) ? (
                 <Link
                   to={"/cart"}
                   className="single-product-primary-btn flex-center-row mar-t-1"
@@ -95,14 +94,16 @@ export const SingleProductDetails = () => {
                 </Link>
               ) : (
                 <div
-                  onClick={(e) => {
+                  onClick={async (e) => {
                     if (token) {
                       e.stopPropagation();
+                      await dispatch(
+                        addToCart({ product: product, user_token: token })
+                      );
                       handleaddtoast({
                         message: "Added To Cart",
                         type: "alert-success",
                       });
-                      setUser_Data({ type: "ADD_TO_CART", paylod: product });
                     } else {
                       handleaddtoast({
                         message: "Login First To Add to Cart",

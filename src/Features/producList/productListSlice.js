@@ -23,11 +23,16 @@ const productListSlice = createSlice({
   initialState: initialAuthState,
   reducers: {},
   extraReducers: {
+    [fetch_product.pending]: (state) => {
+      state.status = "loading";
+    },
     [fetch_product.fulfilled]: (state, { payload }) => {
       state.product_list = payload;
+      state.status = "fullfilled";
     },
-    [fetch_product.rejected]: (state, { payload }) => {
+    [fetch_product.rejected]: (state) => {
       state.product_list = [];
+      state.status = "rejected";
     },
   },
 });

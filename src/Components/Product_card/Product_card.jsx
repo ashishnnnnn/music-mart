@@ -1,17 +1,17 @@
 import "./Product_card.css";
-import { useUserData } from "../../context/UserDataContext";
 import { is_item_in_wishlist, is_item_in_cart } from "../../utils";
 import { useToast } from "../../context/ToastContext";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToWishlist } from "../../Features/authentication/authSlice";
+import { removeFromWishlist } from "../../Features/authentication/authSlice";
+import { addToCart } from "../../Features/authentication/authSlice";
 
 export const Product_card = ({ item, is_wishlist }) => {
-  const { user_data, setUser_Data } = useUserData();
   let navigate = useNavigate();
   const { handleaddtoast } = useToast();
-  const auth_state = useSelector((state) => state.auth);
-  const { token } = auth_state;
+  const { token, user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   return (
     <div
       onClick={() => {
@@ -26,16 +26,21 @@ export const Product_card = ({ item, is_wishlist }) => {
         <div className="hero">
           <div className="title">{item.title}</div>
         </div>
-        {is_item_in_wishlist(user_data.wishlist, item) ? (
+        {is_item_in_wishlist(user?.wishlist ?? [], item) ? (
           <div
             onClick={(e) => {
               e.stopPropagation();
               if (token) {
+                dispatch(
+                  removeFromWishlist({
+                    product_id: item._id,
+                    user_token: token,
+                  })
+                );
                 handleaddtoast({
                   message: "Removed from Wishlist",
                   type: "alert-success",
                 });
-                setUser_Data({ type: "REMOVE_FROM_WISHLIST", paylod: item });
               }
             }}
             className="wishlist-btn fnt-2"
@@ -47,11 +52,11 @@ export const Product_card = ({ item, is_wishlist }) => {
             onClick={(e) => {
               e.stopPropagation();
               if (token) {
+                dispatch(addToWishlist({ product: item, user_token: token }));
                 handleaddtoast({
                   message: "Added To Wishlist",
                   type: "alert-success",
                 });
-                setUser_Data({ type: "ADD_TO_WISHLIST", paylod: item });
               } else {
                 handleaddtoast({
                   message: "Login First To add To Wishlist",
@@ -73,16 +78,16 @@ export const Product_card = ({ item, is_wishlist }) => {
           ))}
         </div>
       </div>
-      {!is_item_in_cart(user_data.cart, item) ? (
+      {!is_item_in_cart(user?.cart ?? [], item) ? (
         <div
           onClick={(e) => {
             e.stopPropagation();
             if (token) {
+              dispatch(addToCart({ product: item, user_token: token }));
               handleaddtoast({
                 message: "Added To Cart",
                 type: "alert-success",
               });
-              setUser_Data({ type: "ADD_TO_CART", paylod: item });
             } else {
               handleaddtoast({
                 message: "Login First To add To Cart",
