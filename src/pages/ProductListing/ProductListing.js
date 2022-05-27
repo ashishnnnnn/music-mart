@@ -14,12 +14,10 @@ export const ProductListing = () => {
   useEffect(() => {
     (async () => {
       setisloading(true);
-      try {
-        const response = await dispatch(fetch_product());
-        setisloading(false);
-      } catch (e) {
-        setisloading(false);
-      }
+      await (async () => {
+        return new Promise((resolve) => setTimeout(resolve, 1100));
+      })();
+      setisloading(false);
     })();
   }, []);
   const list_to_view = filteration(product_list, filters);

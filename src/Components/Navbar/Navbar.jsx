@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useToast } from "../../context/ToastContext";
 
 import { logout } from "../../Features/authentication/authSlice";
+import { fetch_product } from "../../Features/producList/productListSlice";
+import { useEffect } from "react";
 
 export const Navbar = () => {
   useGetLocalData();
@@ -25,6 +27,15 @@ export const Navbar = () => {
 
   const auth_state = useSelector((state) => state.auth);
   const { user, token } = auth_state;
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await dispatch(fetch_product());
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, []);
   return (
     <>
       <div className="navigation-bar z-ind-2">

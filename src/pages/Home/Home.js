@@ -2,6 +2,8 @@ import { Sliders, Footer } from "../../Components";
 import { Link, useNavigate } from "react-router-dom";
 import { setCategory, clearFilter } from "../../Features/filter/filterSlice";
 import { useDispatch } from "react-redux";
+import { fetch_product } from "../../Features/producList/productListSlice";
+import { useEffect } from "react";
 
 import "./Home.css";
 const cateogry_details = [
