@@ -1,6 +1,5 @@
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { useGetLocalData } from "../../Hooks/useGetLocalData";
 import { useUserData } from "../../context/UserDataContext";
 import { useState } from "react";
 import { get_searched_result } from "../../utils";
@@ -14,7 +13,6 @@ import { fetch_product } from "../../Features/producList/productListSlice";
 import { useEffect } from "react";
 
 export const Navbar = () => {
-  useGetLocalData();
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const { handleaddtoast } = useToast();
@@ -75,6 +73,7 @@ export const Navbar = () => {
                     });
                     dispatch(logout());
                     setSideBarActive((pre_state) => !pre_state);
+                    setUser_Data({ type: "RESET" });
                   }}
                   className="btn btn-primary cursor-pointer"
                 >
@@ -175,6 +174,7 @@ export const Navbar = () => {
                     type: "alert-success",
                   });
                   dispatch(logout());
+                  setUser_Data({ type: "RESET" });
                 }}
                 className="btn btn-primary cursor-pointer"
               >

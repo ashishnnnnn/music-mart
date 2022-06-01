@@ -17,21 +17,8 @@ export const Horizontal_card = ({ item }) => {
             <div className="discount-price">Rs {item.price}</div>
           </div>
         </div>
-        <div className="qunatity-container flex-center-row gap-0-5 jst-sp-st">
-          <p>Quantity :</p>
-          <div
-            onClick={() => {
-              handleaddtoast({
-                message: "Increased the Quantity",
-                type: "alert-success",
-              });
-              setUser_Data({ type: "INCREASE_QUANTITY", paylod: item });
-            }}
-            className="flex-center-row change-qnt add pad-2px"
-          >
-            <i className="fas fa-plus"></i>
-          </div>
-          <p className="flex-center-row quantity">{item.qnty}</p>
+        <div className="qunatity-container flex-center-row gap-0-5 jst-sp-st ">
+          <p className="mar-r-auto">Quantity :</p>
           {item.qnty > 1 && (
             <div
               onClick={() => {
@@ -41,11 +28,24 @@ export const Horizontal_card = ({ item }) => {
                 });
                 setUser_Data({ type: "DECREASE_QUANTITY", paylod: item });
               }}
-              className="flex-center-row change-qnt remove pad-2px"
+              className="flex-center-row change-qnt remove pad-2px "
             >
               <i className="fas fa-minus"></i>
             </div>
           )}
+          <p className="flex-center-row quantity">{item.qnty}</p>
+          <div
+            onClick={() => {
+              handleaddtoast({
+                message: "Increased the Quantity",
+                type: "alert-success",
+              });
+              setUser_Data({ type: "INCREASE_QUANTITY", paylod: item });
+            }}
+            className="flex-center-row change-qnt add pad-2px "
+          >
+            <i className="fas fa-plus"></i>
+          </div>
         </div>
         <div className="card-btn flex-center-column">
           <div

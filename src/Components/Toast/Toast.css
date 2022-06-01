@@ -8,7 +8,7 @@
   flex-direction: column;
   gap: 0.5rem;
   position: absolute;
-  top: 15rem;
+  bottom: 2rem;
   right: 0;
   list-style: none;
 }

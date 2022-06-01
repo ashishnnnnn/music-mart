@@ -1,0 +1,29 @@
+.pop_up_background {
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.5;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 2;
+}
+
+.pop_up_show {
+  width: 30rem;
+  height: fit-content;
+  background-color: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  border-radius: 15px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .pop_up_show {
+    width: 20rem;
+  }
+}

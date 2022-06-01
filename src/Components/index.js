@@ -13,3 +13,5 @@ export { Mobile_filter } from "./Mobile_filter/Mobile_filter";
 export { Toast } from "./Toast/Toast";
 
 export { Horizontal_card } from "./Horizontal_card/Horizontal_card";
+
+export { OrderModal } from "./OrderModal/OrderModal";
